@@ -25,19 +25,17 @@ pipeline {
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
                 sh './jenkins/scripts/kill.sh'
             }
-            
         }
-
         stage('OWASP Dependency-Check Vulnerabilities') {
-        steps {
-        dependencyCheck additionalArguments: ''' 
+            steps {
+                dependencyCheck additionalArguments: '''
                     -o './'
                     -s './'
-                    -f 'ALL' 
+                    -f 'ALL'
                     --prettyPrint''', odcInstallation: 'OWASP Dependency-Check Vulnerabilities'
-        
-        dependencyCheckPublisher pattern: 'dependency-check-report.xml'
-      }
-    }
+                
+                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+            }
+        }
     }
 }
